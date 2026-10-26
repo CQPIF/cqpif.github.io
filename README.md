@@ -2,7 +2,7 @@
 
 Site en ligne : https://cqpif.github.io/
 
-Les cours 4 et 5 commencent par deux pages de révision autonomes.
+Les cours 4 et 5 commencent chacun par une seule fiche À retenir autonome.
 Les explications suivantes servent à approfondir.
 Un sommaire déroulant reste accessible pendant la lecture sur téléphone.
 
