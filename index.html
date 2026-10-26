@@ -279,6 +279,24 @@
     $('history-view').innerHTML = `<div class="history-intro"><p class="eyebrow">VOIR LE CHEMIN PARCOURU</p><h1>Mes résultats.</h1><p class="intro-text">Chaque questionnaire terminé compte.<br>Retrouve tes scores et les notions à revoir.</p></div><div class="stats-row"><div class="stat-panel"><strong>${history.length}</strong><span>questionnaire${history.length>1?'s':''} terminé${history.length>1?'s':''}</span></div><div class="stat-panel"><strong>${average}${history.length?'<small>/10</small>':''}</strong><span>moyenne</span></div><div class="stat-panel"><strong>${best}${history.length?'<small>/10</small>':''}</strong><span>meilleur score</span></div></div><div class="history-list">${history.map(h=>`<article class="history-row"><div class="history-score">${h.score}<small>/10</small></div><div class="history-info"><h2>${esc(h.label)}</h2><p>${esc(new Date(h.date).toLocaleString('fr-FR',{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}))} · 10 questions</p></div><button data-action="open-result" data-result-id="${esc(h.id)}">Corrigé</button></article>`).join('') || '<div class="empty-state"><h3>Ton premier résultat t’attend.</h3><p>Commence un questionnaire pour retrouver ici ton score et son corrigé.</p><button class="button primary" data-action="choose-quiz">Choisir un questionnaire</button></div>'}</div><p class="history-disclaimer">Les 60 derniers résultats restent enregistrés dans ce navigateur, même après fermeture du site, si le stockage est autorisé. Ils ne sont pas synchronisés entre appareils et sont effacés si tu supprimes les données du site. En navigation privée, ils peuvent disparaître à la fermeture de la fenêtre. Les questionnaires sont des entraînements à partir des cours, sans valeur de certification.</p>`;
   }
 
+  let tocScrollBaseline = window.scrollY;
+  let tocScrollReady = true;
+  document.addEventListener('toggle',event=>{
+    if (!event.target.matches?.('.mobile-toc')) return;
+    tocScrollReady = false;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      tocScrollBaseline = Math.max(0,window.scrollY);
+      tocScrollReady = true;
+    }));
+  },true);
+  window.addEventListener('scroll',()=>{
+    const y = Math.max(0,window.scrollY);
+    const toc = document.querySelector('.mobile-toc[open]');
+    if (!toc || !tocScrollReady) return;
+    if (y < tocScrollBaseline) tocScrollBaseline = y;
+    if (y > tocScrollBaseline + 4 && getComputedStyle(toc).display !== 'none') toc.open = false;
+  },{passive:true});
+
   document.addEventListener('click',event=>{
     const mobileTocLink = event.target.closest('.mobile-toc a');
     if (mobileTocLink) { mobileTocLink.closest('details').open=false; return; }
