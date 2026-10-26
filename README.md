@@ -2,6 +2,10 @@
 
 Site en ligne : https://cqpif.github.io/
 
+Les cours 4 et 5 commencent par deux pages de révision autonomes.
+Les explications suivantes servent à approfondir.
+Un sommaire déroulant reste accessible pendant la lecture sur téléphone.
+
 Site de révision en français : 5 cours corrigés, 14 thèmes et 210 questions.
 
 Chaque questionnaire comporte 10 questions. Une bonne réponse rapporte 1 point.
